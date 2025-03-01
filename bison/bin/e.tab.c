@@ -75,7 +75,8 @@
 
 #define YYSTYPE double
 
-double sym[26]; // массив переменных a-z
+double sym[26]; 
+int init[26] = {0}; 
 
 int yyerror(const char *s);
 int yylex(void);
@@ -112,7 +113,7 @@ typedef int YYSTYPE;
 
 
 /* Line 219 of yacc.c.  */
-#line 116 "e.tab.c"
+#line 117 "e.tab.c"
 
 #if ! defined (YYSIZE_T) && defined (__SIZE_TYPE__)
 # define YYSIZE_T __SIZE_TYPE__
@@ -331,7 +332,7 @@ static const yysigned_char yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const unsigned char yyrline[] =
 {
-       0,    19,    19,    20,    23,    29,    30,    33,    34
+       0,    20,    20,    21,    24,    31,    32,    35,    42
 };
 #endif
 
@@ -1086,30 +1087,37 @@ yyreduce:
   switch (yyn)
     {
         case 4:
-#line 23 "e.y"
+#line 24 "e.y"
     { 
     sym[(int)(yyvsp[-3])] = (yyvsp[-1]); 
+    init[(int)(yyvsp[-3])] = 1; 
     printf("%c = %f\n", (char)((int)(yyvsp[-3]) + 'a'), sym[(int)(yyvsp[-3])]); 
 ;}
     break;
 
   case 5:
-#line 29 "e.y"
+#line 31 "e.y"
     { (yyval) = (yyvsp[-2]) + (yyvsp[0]); ;}
     break;
 
   case 6:
-#line 30 "e.y"
+#line 32 "e.y"
     { (yyval) = (yyvsp[0]); ;}
     break;
 
   case 7:
-#line 33 "e.y"
-    { (yyval) = sym[(int)(yyvsp[0])]; ;}
+#line 35 "e.y"
+    { 
+    if (!init[(int)(yyvsp[0])]) {
+        printf("Error: '%c' is not initialized\n", (char)((int)(yyvsp[0]) + 'a'));
+        exit(1); 
+    }
+    (yyval) = sym[(int)(yyvsp[0])]; 
+;}
     break;
 
   case 8:
-#line 34 "e.y"
+#line 42 "e.y"
     { (yyval) = (yyvsp[0]); ;}
     break;
 
@@ -1118,7 +1126,7 @@ yyreduce:
     }
 
 /* Line 1126 of yacc.c.  */
-#line 1122 "e.tab.c"
+#line 1130 "e.tab.c"
 
   yyvsp -= yylen;
   yyssp -= yylen;
@@ -1386,7 +1394,7 @@ yyreturn:
 }
 
 
-#line 37 "e.y"
+#line 45 "e.y"
 
 
 int main() {

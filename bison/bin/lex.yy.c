@@ -389,7 +389,7 @@ char *yytext;
 #include <stdlib.h>
 #include <string.h>
 
-double sym[26]; // массив переменных a-z
+double sym[26]; 
 #line 394 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
@@ -647,7 +647,7 @@ case 2:
 YY_RULE_SETUP
 #line 23 "e.l"
 {
-                yylval = (double)(yytext[0] - 'a'); // Исправлено приведение типа
+                yylval = (double)(yytext[0] - 'a'); 
                 return LETTER;
             }
 	YY_BREAK
@@ -669,7 +669,7 @@ YY_RULE_SETUP
 case 6:
 YY_RULE_SETUP
 #line 32 "e.l"
-{ /* пропуск пробелов и символов новой строки */ }
+{ }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
